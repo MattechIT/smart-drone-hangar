@@ -1,0 +1,52 @@
+@startuml Smart Drone Hangar
+scale 2
+
+[*] --> Active
+
+State Active{
+[*] --> IDLE
+IDLE: do / L1 on
+IDLE : do / L2 off
+IDLE: do / LCD('DRONE INSIDE')
+
+IDLE --> TAKE_OFF : [msg=='TAKE OFF']
+TAKE_OFF: entry / HD(open)
+TAKE_OFF: do / LCD('TAKE OFF')
+TAKE_OFF: do /L2 blink(0.5)
+
+TAKE_OFF --> DRONE_OUT : [d>D1 for T1]
+DRONE_OUT: HD(close)
+DRONE_OUT: LCD('DRONE OUT')
+
+DRONE_OUT --> LANDING : [msg=='LANDING' & DPD(detect)]
+LANDING: entry / HD(open)
+LANDING: do / LCD('LANDING')
+LANDING: do /L2 blink(0.5)
+
+LANDING --> IDLE : [d<D2 for T2] / HD(close)
+
+||
+
+[*] --> NORMAL
+NORMAL: do / L3 off
+
+NORMAL --> PRE_ALARM : [t>Temp1 for T3]
+PRE_ALARM : do / block new takeoffs
+PRE_ALARM : do / block new landings
+
+PRE_ALARM --> NORMAL : [t<Temp1]
+
+NORMAL --> ALARM : [t>Temp2 for T4]
+PRE_ALARM --> ALARM : [t>Temp2 for T4]
+ALARM: entry / HD(close)
+ALARM: entry / [DRONE_OUT] : DRU(msg='ALARM')
+ALARM: do / L3 on
+ALARM: do / LCD('ALARM')
+ALARM : do / block new takeoffs
+ALARM : do / block new landings
+
+ALARM --> NORMAL : [press RESET]
+
+}
+
+@enduml
