@@ -70,3 +70,7 @@ The PC application is developed using **Java Swing** for the GUI and **JSSC** fo
 3.  Wait for "System Ready" log.
 4.  Use **Takeoff** to open the hangar.
 5.  Use **Land** to request re-entry (requires PIR activation on the breadboard).
+
+## 6. Demonstration Video
+A demonstration video of the Smart Drone Hangar in action can be found at:
+[Smart Drone Hangar Demo Video](https://youtu.be/98r8ogoutYk)
