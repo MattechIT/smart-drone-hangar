@@ -52,7 +52,7 @@ The system interacts with the physical world through the following mapping:
 | **Temp Sensor** | A0 | Monitors internal temperature. |
 | **LCD Display** | I2C | Shows system status messages to the operator. |
 
-![Circuit Diagram](circuit.png)
+![Circuit Diagram](Circuit.png)
 
 *(See `circuit.png` for the schematic view)*
 
